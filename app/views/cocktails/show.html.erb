@@ -1,4 +1,19 @@
 <h1>
   Cocktail: <%= @cocktail.name %>
-  <%= link_to "Back to Cocktail list", cocktails_path, class: "btn btn-primary btn-sm" %>
+  <%= link_to "Back to Cocktail list", cocktails_path, class: "btn btn-primary btn-sm" %> 
 </h1>
+
+<%= simple_form_for [@cocktail, @dose] do |f| %>
+  <%= f.association :ingredient, input_html: { class: "beautiful-dropdown" }, include_hidden: false %>
+  <%= f.input :description %>
+  <%= f.button :submit, class: "btn btn-primary" %>
+<% end %>
+
+<ul>
+  <li>
+    <% @cocktails.doses.each do |dose| %>
+      <%= dose.ingredient.name %>
+      <%= dose.description %>
+    <% end %>
+  </li>
+</ul>
